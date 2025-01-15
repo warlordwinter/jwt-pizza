@@ -24,4 +24,3 @@ As part of `Deliverable ⓵ Development deployment: JWT Pizza`, start up the app
 | View Admin page                                     | adminDashboard.tsx                   | [GET] /api/franchise                  | SELECT id, name FROM franchise SELECT id, name FROM store WHERE franchiseId=?             |
 | Create a franchise for t@jwt.com                    | createFranchise.tsx                   | [POST] /api/franchise                  | INSERT INTO franchise (name) VALUES (?) INSERT INTO userRole (userId, role, objectId) VALUES (?, ?, ?)             |
 | Close the franchise for t@jwt.com                   | closeFranchise.tsx                   | [DELETE] /api/franchise/:franchiseId                  | DELETE FROM store WHERE franchiseId=? DELETE FROM userRole WHERE objectId=? DELETE FROM franchise WHERE id=?             |
-+++
