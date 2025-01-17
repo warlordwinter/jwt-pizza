@@ -23,6 +23,4 @@ As part of `Deliverable ⓵ Development deployment: JWT Pizza`, start up the app
 | Login as admin<br/>(a@jwt.com, pw: admin)           | adminDashboard.tsx  | [Put]api/auth |   INSERT INTO auth (token, userId) VALUES (?, ?)           |
 | View Admin page                                     | adminDashBoard.tsx  | [Get]api/franchise | None          |
 | Create a franchise for t@jwt.com                    | createFranchise.tsx |[Post]api/franchise  |  SELECT id, name FROM user WHERE email=?            |
-| Close the franchise for t@jwt.com                   | closeFranchise.tsx  | [Delete]api/franchise/3  |           await this.query(connection, `DELETE FROM store WHERE franchiseId=?`, [franchiseId]);
-        await this.query(connection, `DELETE FROM userRole WHERE objectId=?`, [franchiseId]);
-        await this.query(connection, `DELETE FROM franchise WHERE id=?`, [franchiseId]);           |
+| Close the franchise for t@jwt.com                   | closeFranchise.tsx  | [Delete]api/franchise/3  |           await this.query(connection, DELETE FROM store WHERE franchiseId=?, [franchiseId]); await this.query(connection, DELETE FROM userRole WHERE objectId=?, [franchiseId]); await this.query(connection, DELETE FROM franchise WHERE id=?, [franchiseId]);           |
