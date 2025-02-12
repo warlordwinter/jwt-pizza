@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: "20.x"
 
       - name: set version
         id: set_version
@@ -50,3 +50,14 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         #new version which doesnt u
+      - name: Run tests
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:coverage
+          - name: Update coverage
+
+      - name: Update coverage
+        run: |
+          coverage=$(jq '.total.lines.pct' coverage/coverage-summary.json)
+          color=$(echo "$coverage < 80" | bc -l | awk '{if ($1) print "red"; else print "green"}')
+          curl -s -X POST "https://badge.cs329.click/badge/${{ github.repository_owner }}/jwtpizzacoverage?label=Coverage&value=$coverage%25&color=$color" -H "authorization: bearer ${{ secrets.FACTORY_API_KEY }}" -o /dev/null
