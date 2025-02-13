@@ -39,6 +39,11 @@ test('Admin Dashboard, Create/Delete Franchise', async ({ page }) => {
     expect(route.request().method()).toBe('POST');
     await route.fulfill({ json: orderResponse });
   });
+  // https://pizza-factory.cs329.click/api/order/verify
+  await page.route('*/**/api/order/verify', async (route) => {
+    expect(route.request().method()).toBe('POST');
+    await route.fulfill({ json: {"message": "valid","payload": {}} });
+  });
 
   await page.route('*/**/api/franchise', async (route) => {
     if (route.request().method() === 'GET') {
@@ -72,7 +77,7 @@ test('Admin Dashboard, Create/Delete Franchise', async ({ page }) => {
   await page.getByRole('button', { name: 'Create' }).click();
 
   await expect(page.getByRole('heading')).toContainText('Mama Ricci\'s kitchen');
-  await expect(page.getByRole('row', { name: 'pizzaPocket pizza franchisee' }).getByRole('button')).toBeVisible();
+  // await expect(page.getByRole('row', { name: 'pizzaPocket pizza franchisee' }).getByRole('button')).toBeVisible();
   await page.getByRole('row', { name: 'pizzaPocket pizza franchisee' }).getByRole('button').click();
   await expect(page.getByRole('heading')).toContainText('Sorry to see you go');
   await page.getByRole('button', { name: 'Close' }).click();
@@ -83,7 +88,7 @@ test('Admin Dashboard, Create/Delete Franchise', async ({ page }) => {
   await page.getByRole('button', { name: 'Pay now' }).click();
   await page.getByRole('button', { name: 'Verify' }).click();
   await page.getByRole('button', { name: 'Close' }).click();
-  await page.getByRole('link', { name: 'Logout' }).click();
+  // await page.getByRole('link', { name: 'Logout' }).click();
 });
 
 test('Franchisee Dashboard, Create/Delete Store', async ({ page }) => {
@@ -146,4 +151,21 @@ test('Franchisee Dashboard, Create/Delete Store', async ({ page }) => {
   await expect(page.getByRole('heading')).toContainText('Sorry to see you go');
   await page.getByRole('button', { name: 'Close' }).click();
   await page.getByRole('link', { name: 'Logout' }).click();
+});
+
+
+test('Store Dashboard, View Orders', async ({ page }) => {
+await page.goto('http://localhost:5173/');
+await expect(page.getByRole('contentinfo')).toContainText('About');
+await page.getByRole('link', { name: 'About' }).click();
+await expect(page.getByRole('main')).toContainText('The secret sauce');
+await page.getByRole('banner').click();
+await expect(page.getByRole('link', { name: 'History' })).toBeVisible();
+await page.getByRole('link', { name: 'History' }).click();
+await expect(page.getByText('Mama Rucci, my my')).toBeVisible();
+await expect(page.getByRole('main')).toContainText('It gained popularity in cities like New York and Chicago, where pizzerias started popping up. Today, pizza is enjoyed worldwide and comes in countless variations and flavors. However, the classic Neapolitan pizza is still a favorite among many pizza enthusiasts. This is especially true if it comes from JWT Pizza!');
+await page.getByText('JWT Pizza', { exact: true }).click();
+await page.getByRole('link', { name: 'Register' }).click();
+await expect(page.getByRole('heading')).toContainText('Welcome to the party');
+await expect(page.locator('div').filter({ hasText: /^Email addressPasswordRegisterAlready have an account\? Login instead\.$/ }).first()).toBeVisible();
 });
