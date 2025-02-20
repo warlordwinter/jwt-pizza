@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: "20.x"
 
+      - name: Install dependencies
+        run: npm install
+
       - name: set version
         id: set_version
         run: |
@@ -37,7 +40,7 @@ jobs:
       - name: Run tests
         run: |
           npx playwright install --with-deps chromium
-          npm run test:coverage
+          npx nyc --reporter=json-summary --reporter=text npx playwright test
 
       - name: Update coverage badge
         run: |
