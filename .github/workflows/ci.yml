@@ -24,6 +24,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build the project
+        run: npm run build # Make sure this command generates the dist/ directory
+
+      - name: List dist contents
+        run: ls -la dist/ # Verify that dist/ is populated correctly
+
       - name: set version
         id: set_version
         run: |
@@ -35,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: package
-          path: dist/
+          path: dist/ # Ensure this is the right path
 
       - name: Run tests
         run: |
@@ -68,7 +74,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: package
-          path: dist/
+          path: dist/ # Ensure this matches the artifact name
 
       - name: Push to AWS S3
         run: |
