@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://pizza.aonstott329.click
+      url: https://stage-pizza.aonstott329.click
     env:
       version: ${{needs.build.outputs.version}}
     steps:
