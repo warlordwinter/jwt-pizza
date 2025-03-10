@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://jwtpizza.wjw37.click
+      url: https://pizza.pdfsimplifer.click
     env:
       version: ${{needs.build.outputs.version}}
     steps:
