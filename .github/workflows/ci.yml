@@ -76,7 +76,7 @@ jobs:
 
       - name: Push to AWS S3
         run: |
-          aws s3 cp dist s3://pizza.pdfsimplifer.click/$version --recursive
+          aws s3 cp dist s3://${{ secrets.APP_BUCKET }}/$version --recursive
 
       - name: Update the cloudfront distribution
         run: |
