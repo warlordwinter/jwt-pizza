@@ -13,3 +13,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 .nyc_output
+
+/deployCloudFormation.sh
