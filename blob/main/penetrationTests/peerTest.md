@@ -151,3 +151,6 @@ malicious_response=$(curl -s -X POST "$host/api/auth" \
 echo "Malicious input response: $malicious_response"
 ```
 
+# Combined Findings
+We learned that cybersecurity isn't just protecting your stuff from getting deleted. It can be metrics security, it can be removing endpoints that isn't needed, it can also be ecripting your data and your student. 
+To be a successful engineer its key for us to protect our system. Failing to do so breaks trust and stops customers and employees from trusting us.  It is also important to protect againt simple attacks, such as default admin passwords. It can be helpful to have other people try to find exploits in your code, because they might see things that you would not think of yourself.
